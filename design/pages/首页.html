@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>护苗 Eval — 青少年AI应用上线前安全测评台</title>
+    <style id="theme-vars">
+/* EvalForge Youth — Brand Design System */
+/* "温柔的严肃感" — Warm credibility meets professional evaluation */
+
+:root {
+  /* ── Primary Color System ── */
+  --color-primary: #0B4E4C;
+  --color-primary-hover: #083B3A;
+  --color-primary-light: #E6F5F5;
+  --color-primary-lighter: #F0FAFA;
+  --color-primary-tint-90: #F0FAFA;
+  --color-primary-tint-80: #E0F5F4;
+  --color-primary-tint-70: #D0EBEB;
+  --color-primary-tint-60: #BFE1E1;
+  --color-primary-tint-50: #AFD7D7;
+
+  /* ── Warm Accent (coral, for emotional/connection sections) ── */
+  --color-warm: #E07A5F;
+  --color-warm-hover: #D4694E;
+  --color-warm-light: #FFF0EC;
+  --color-warm-lighter: #FFF7F5;
+
+  /* ── Backgrounds ── */
+  --color-bg: #FAFBFC;
+  --color-bg-elevated: #FFFFFF;
+  --color-bg-sunken: #F1F3F5;
+  --color-bg-dark: #0F2027;
+  --color-bg-dark-elevated: #172928;
+  --color-bg-dark-card: #1A3534;
+
+  /* ── State Colors ── */
+  --state-success: #10A04C;
+  --state-success-light: #E8F8F0;
+  --state-warning: #E8A020;
+  --state-warning-light: #FFF8E8;
+  --state-error: #D94040;
+  --state-error-light: #FDE8E8;
+  --state-info: #2B7BBF;
+  --state-info-light: #E8F2FA;
+
+  /* ── Text ── */
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #5A5E6B;
+  --color-text-tertiary: #8B8F9A;
+  --color-text-inverse: #F8F9FA;
+  --color-text-on-dark: #E0E4E8;
+  --color-text-link: #0B4E4C;
+
+  /* ── Border ── */
+  --color-border: #E2E5EA;
+  --color-border-light: #F0F1F3;
+  --color-border-dark: #2A4040;
+
+  /* ── Shape System ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* ── Typography ── */
+  --font-display: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ── Shadow (border-first, alpha ≤ 0.05 for static) ── */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 16px rgba(0,0,0,0.05);
+  --shadow-float: 0 12px 24px rgba(0,0,0,0.08);
+
+  /* ── Spacing ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ── Transitions ── */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* ── Layout ── */
+  --container-max: 1200px;
+  --navbar-height: 64px;
+}
+
+/* ── Body Base ── */
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Dark Mode Body ── */
+html.dark body {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-on-dark);
+}
+
+/* ── Headings ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+
+html.dark h1, html.dark h2, html.dark h3 {
+  color: var(--color-text-inverse);
+}
+
+/* ── Utility: Surface Cards ── */
+.surface-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: box-shadow var(--transition-base);
+}
+
+html.dark .surface-card {
+  background: var(--color-bg-dark-card);
+  border-color: var(--color-border-dark);
+}
+
+/* ── Risk Tag Colors ── */
+.risk-tag-high {
+  background: var(--state-error-light);
+  color: var(--state-error);
+  border: 1px solid rgba(217,64,64,0.15);
+}
+.risk-tag-medium {
+  background: var(--state-warning-light);
+  color: var(--state-warning);
+  border: 1px solid rgba(232,160,32,0.15);
+}
+.risk-tag-low {
+  background: var(--state-success-light);
+  color: var(--state-success);
+  border: 1px solid rgba(16,160,76,0.15);
+}
+.risk-tag-pass {
+  background: var(--state-success-light);
+  color: var(--state-success);
+  border: 1px solid rgba(16,160,76,0.2);
+}
+
+html.dark .risk-tag-high {
+  background: rgba(217,64,64,0.15);
+  border-color: rgba(217,64,64,0.3);
+}
+html.dark .risk-tag-medium {
+  background: rgba(232,160,32,0.15);
+  border-color: rgba(232,160,32,0.3);
+}
+html.dark .risk-tag-low {
+  background: rgba(16,160,76,0.15);
+  border-color: rgba(16,160,76,0.3);
+}
+html.dark .risk-tag-pass {
+  background: rgba(16,160,76,0.2);
+  border-color: rgba(16,160,76,0.35);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-primary: var(--color-primary);
+    --color-border: var(--color-border);
+  }
+  @layer base {
+    body { background: var(--color-bg); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROJECT SHELL — 护苗 Eval Shared Navbar
+     Leaf pages: replace <!-- SLOT: activeNavItem --> with the
+     matching nav key before rendering.
+     ═══════════════════════════════════════════════════════════════ -->
+<nav class="fixed top-0 left-0 right-0 z-50 w-full border-b" style="height: var(--navbar-height); background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-color: var(--color-border-light);">
+  <div class="flex items-center justify-between h-full max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-2 shrink-0" style="text-decoration: none;">
+      <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M16 2L4 8v8c0 7.18 5.13 13.89 12 16 6.87-2.11 12-8.82 12-16V8L16 2z" fill="var(--color-primary)"/>
+        <path d="M14 19l-3-3 1.41-1.41L14 16.17l4.59-4.59L20 13l-6 6z" fill="var(--color-bg-elevated)"/>
+      </svg>
+      <span class="text-lg font-semibold truncate" style="font-family: var(--font-display); color: var(--color-text-primary);">护苗 Eval</span>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <ul class="hidden md:flex items-center gap-1 h-full">
+      <li>
+        <a href="#" class="nav-link flex items-center h-full px-3 text-sm font-medium" data-nav-key="index" data-active="true"
+           style="color: var(--color-primary); transition: color var(--transition-fast);">
+          首页
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link flex items-center h-full px-3 text-sm" data-nav-key="dashboard"
+           style="color: var(--color-text-secondary); transition: color var(--transition-fast);">
+          测评台
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link flex items-center h-full px-3 text-sm" data-nav-key="docs"
+           style="color: var(--color-text-secondary); transition: color var(--transition-fast);">
+          文档
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link flex items-center h-full px-3 text-sm" data-nav-key="about"
+           style="color: var(--color-text-secondary); transition: color var(--transition-fast);">
+          关于
+        </a>
+      </li>
+    </ul>
+
+    <!-- Right: CTA + Mobile hamburger -->
+    <div class="flex items-center gap-3">
+      <a href="#" class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white whitespace-nowrap"
+         data-dom-id="cta-start-eval"
+         style="background: var(--color-primary); border-radius: var(--radius-md); transition: background var(--transition-fast);">
+        开始测评
+      </a>
+
+      <!-- Mobile hamburger button -->
+      <button class="flex items-center justify-center w-9 h-9 md:hidden" data-dom-id="mobile-menu-toggle"
+              style="color: var(--color-text-secondary);" aria-label="打开导航菜单">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Mobile navigation panel (hidden by default, toggled via data-dom-id) -->
+  <div class="hidden md:hidden border-t" data-dom-id="mobile-menu-panel"
+       style="background: var(--color-bg-elevated); border-color: var(--color-border-light);">
+    <ul class="flex flex-col py-2 px-4 gap-1">
+      <li>
+        <a href="#" class="nav-link block px-3 py-2 text-sm font-medium whitespace-nowrap" data-nav-key="index" data-active="true"
+           style="color: var(--color-primary); border-radius: var(--radius-sm);">
+          首页
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link block px-3 py-2 text-sm whitespace-nowrap" data-nav-key="dashboard"
+           style="color: var(--color-text-secondary); border-radius: var(--radius-sm);">
+          测评台
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link block px-3 py-2 text-sm whitespace-nowrap" data-nav-key="docs"
+           style="color: var(--color-text-secondary); border-radius: var(--radius-sm);">
+          文档
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link block px-3 py-2 text-sm whitespace-nowrap" data-nav-key="about"
+           style="color: var(--color-text-secondary); border-radius: var(--radius-sm);">
+          关于
+        </a>
+      </li>
+    </ul>
+    <div class="px-4 pb-3">
+      <a href="#" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white"
+         data-dom-id="cta-start-eval-mobile"
+         style="background: var(--color-primary); border-radius: var(--radius-md);">
+        开始测评
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HOMEPAGE CONTENT — 护苗 Eval
+     ═══════════════════════════════════════════════════════════════ -->
+<main class="pt-[var(--navbar-height)]">
+
+  <!-- ── 1. HERO SECTION ── -->
+  <section class="hero-section relative overflow-hidden" style="background: linear-gradient(135deg, #FFF0EC 0%, #FAFBFC 100%);">
+
+    <!-- Gradient mesh overlay -->
+    <div class="absolute inset-0 pointer-events-none" style="
+      background:
+        radial-gradient(ellipse 600px 400px at 15% 30%, rgba(11,78,76,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 350px at 80% 70%, rgba(224,122,95,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 300px 300px at 50% 50%, rgba(11,78,76,0.03) 0%, transparent 70%);
+    "></div>
+
+    <!-- Hero bg decoration image (right side) -->
+    <img src="../assets/image_0_yi19x4.jpg" alt="" class="absolute right-0 top-0 h-full w-auto object-cover pointer-events-none"
+         style="opacity: 0.4; mix-blend-mode: multiply; max-width: 50%;" aria-hidden="true">
+
+    <!-- Noise texture overlay -->
+    <div class="absolute inset-0 pointer-events-none" style="
+      background-image: url('data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%270.03%27/%3E%3C/svg%3E');
+      background-repeat: repeat;
+      background-size: 256px 256px;
+      opacity: 0.4;
+    "></div>
+
+    <!-- Decorative glow element behind hero text -->
+    <div class="absolute pointer-events-none" style="
+      width: 100px; height: 100px;
+      background: var(--color-primary);
+      opacity: 0.1;
+      filter: blur(60px);
+      border-radius: 50%;
+      top: 20%; left: 10%;
+    " aria-hidden="true"></div>
+
+    <div class="relative max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-center">
+
+        <!-- Left side (60%) -->
+        <div class="lg:col-span-3">
+          <!-- Badge with shimmer -->
+          <span class="hero-badge relative inline-flex items-center px-3 py-1 text-sm whitespace-nowrap overflow-hidden"
+                style="border: 1px solid var(--color-primary); border-radius: var(--radius-full); color: var(--color-primary); background: var(--color-primary-lighter);">
+            青少年AI安全测评
+            <span class="absolute inset-0 pointer-events-none" style="
+              background: linear-gradient(90deg, transparent, rgba(11,78,76,0.08), transparent);
+              background-size: 200% 100%;
+              animation: shimmer 3s ease-in-out infinite;
+            " aria-hidden="true"></span>
+          </span>
+
+          <!-- H1 -->
+          <h1 class="mt-6 text-3xl sm:text-4xl lg:text-[clamp(28px,3.5vw,48px)] font-bold leading-tight"
+              style="font-family: var(--font-display); color: var(--color-text-primary); text-wrap: balance; word-break: keep-all; overflow-wrap: break-word;">
+            上线前，先给AI做个安全体检
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="mt-5 text-base lg:text-lg leading-relaxed max-w-2xl" style="color: var(--color-text-secondary);">
+            帮助开发者在面向青少年的AI应用上线前，系统化检测潜在风险——错误安抚、隐私泄露、自伤信号忽略等关键安全隐患
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#" data-dom-id="cta-start-eval"
+               class="hero-cta-primary inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white whitespace-nowrap"
+               style="background: var(--color-primary); border-radius: var(--radius-md); transition: transform 150ms ease, box-shadow 150ms ease, background var(--transition-fast);">
+              开始安全测评
+            </a>
+            <a href="#" data-dom-id="cta-learn-more"
+               class="hero-cta-secondary inline-flex items-center justify-center px-6 py-3 text-base font-medium whitespace-nowrap"
+               style="background: var(--color-bg-elevated); color: var(--color-primary); border: 1px solid var(--color-primary); border-radius: var(--radius-md); transition: transform 150ms ease, box-shadow 150ms ease, background var(--transition-fast);">
+              了解测评流程
+            </a>
+          </div>
+        </div>
+
+        <!-- Right side (40%) -->
+        <div class="lg:col-span-2 flex justify-center lg:justify-end">
+          <img src="../assets/image_1_yi19x4.jpg" alt="护苗 Eval 安全检测插画"
+               class="w-full max-w-md object-cover anim-float"
+               style="border-radius: 16px; max-height: 420px;">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. PROBLEM SECTION (为什么要做) ── -->
+  <section class="problem-section" style="background: var(--color-bg-elevated);">
+
+    <!-- Noise texture -->
+    <div class="absolute inset-0 pointer-events-none" style="
+      background-image: url('data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%270.03%27/%3E%3C/svg%3E');
+      background-repeat: repeat;
+      background-size: 256px 256px;
+      opacity: 0.4;
+    "></div>
+
+    <div class="relative max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+
+      <!-- Section Title -->
+      <div class="text-center max-w-2xl mx-auto mb-12 animate-on-scroll anim-fade-up">
+        <div class="inline-block w-1 h-8 rounded-sm mr-3 align-middle" style="background: var(--color-warm);"></div>
+        <h2 class="inline-block text-2xl sm:text-3xl lg:text-4xl font-bold align-middle"
+            style="font-family: var(--font-display); color: var(--color-text-primary); text-wrap: balance;">
+          面向青少年的AI，真的安全吗？
+        </h2>
+      </div>
+
+      <!-- Problem Cards 2x2 / 4 columns -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Card 1 -->
+        <div class="problem-card animate-on-scroll anim-fade-up p-6" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow);">
+          <div class="flex items-center justify-center w-12 h-12" style="background: linear-gradient(135deg, #E6F5F5 0%, #D0EBEB 100%); border-radius: var(--radius-md);">
+            <i data-lucide="shield-alert" class="w-6 h-6" style="color: var(--color-primary);"></i>
+          </div>
+          <h3 class="mt-4 text-base font-semibold truncate" style="color: var(--color-text-primary);">错误安抚心理</h3>
+          <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">AI可能给出不当的心理建议或错误安抚</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="problem-card animate-on-scroll anim-fade-up p-6" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow); transition-delay: 100ms;">
+          <div class="flex items-center justify-center w-12 h-12" style="background: linear-gradient(135deg, #E6F5F5 0%, #D0EBEB 100%); border-radius: var(--radius-md);">
+            <i data-lucide="lock-open" class="w-6 h-6" style="color: var(--color-primary);"></i>
+          </div>
+          <h3 class="mt-4 text-base font-semibold truncate" style="color: var(--color-text-primary);">隐私泄露风险</h3>
+          <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">可能收集或暴露青少年的敏感个人信息</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="problem-card animate-on-scroll anim-fade-up p-6" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow); transition-delay: 200ms;">
+          <div class="flex items-center justify-center w-12 h-12" style="background: linear-gradient(135deg, #E6F5F5 0%, #D0EBEB 100%); border-radius: var(--radius-md);">
+            <i data-lucide="heart-alert" class="w-6 h-6" style="color: var(--color-primary);"></i>
+          </div>
+          <h3 class="mt-4 text-base font-semibold truncate" style="color: var(--color-text-primary);">忽略自伤信号</h3>
+          <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">未能识别青少年发出的危机信号或自伤倾向</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="problem-card animate-on-scroll anim-fade-up p-6" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow); transition-delay: 300ms;">
+          <div class="flex items-center justify-center w-12 h-12" style="background: linear-gradient(135deg, #E6F5F5 0%, #D0EBEB 100%); border-radius: var(--radius-md);">
+            <i data-lucide="file-check" class="w-6 h-6" style="color: var(--color-primary);"></i>
+          </div>
+          <h3 class="mt-4 text-base font-semibold truncate" style="color: var(--color-text-primary);">缺乏上线标准</h3>
+          <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">没有统一的安全检测标准和上线前评估流程</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. FEATURES SECTION (五大核心能力) ── -->
+  <section class="features-section relative" style="background: #F1F3F5;">
+
+    <!-- Noise texture -->
+    <div class="absolute inset-0 pointer-events-none" style="
+      background-image: url('data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%270.03%27/%3E%3C/svg%3E');
+      background-repeat: repeat;
+      background-size: 256px 256px;
+      opacity: 0.4;
+    "></div>
+
+    <div class="relative max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+
+      <!-- Section Title -->
+      <div class="animate-on-scroll anim-fade-up">
+        <h2 class="text-center text-2xl sm:text-3xl lg:text-4xl font-bold max-w-3xl mx-auto"
+            style="font-family: var(--font-display); color: var(--color-text-primary); text-wrap: balance;">
+          五大核心能力，覆盖上线前安全检测全流程
+        </h2>
+        <!-- Decorative gradient line -->
+        <div class="mx-auto mt-4" style="width: 80px; height: 2px; background: linear-gradient(90deg, var(--color-primary), var(--color-warm)); border-radius: var(--radius-full);" aria-hidden="true"></div>
+      </div>
+
+      <!-- Feature Cards (horizontal scroll on mobile, 5 columns on desktop) -->
+      <div class="flex lg:grid lg:grid-cols-5 gap-6 mt-12 overflow-x-auto no-scrollbar pb-4 lg:pb-0 snap-x snap-mandatory">
+
+        <!-- Feature 1 -->
+        <div class="feature-card shrink-0 w-[260px] lg:w-auto p-5 snap-start animate-on-scroll anim-fade-up" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow);">
+          <div class="flex justify-center">
+            <div class="feature-icon-wrap flex items-center justify-center w-12 h-12" style="background: linear-gradient(135deg, #E6F5F5 0%, #D0EBEB 100%); border-radius: var(--radius-md); transition: transform var(--transition-slow);">
+              <i data-lucide="test-tubes" class="w-6 h-6" style="color: var(--color-primary);"></i>
+            </div>
+          </div>
+          <h3 class="mt-4 text-center text-base font-semibold truncate" style="color: var(--color-text-primary);">场景测试用例</h3>
+          <p class="mt-2 text-center text-sm leading-relaxed line-clamp-2" style="color: var(--color-text-secondary);">自动生成青少年场景测试问题集</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card shrink-0 w-[260px] lg:w-auto p-5 snap-start animate-on-scroll anim-fade-up" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow); transition-delay: 80ms;">
+          <div class="flex justify-center">
+            <div class="feature-icon-wrap flex items-center justify-center w-12 h-12" style="background: linear-gradient(135deg, #E6F5F5 0%, #D0EBEB 100%); border-radius: var(--radius-md); transition: transform var(--transition-slow);">
+              <i data-lucide="gauge" class="w-6 h-6" style="color: var(--color-primary);"></i>
+            </div>
+          </div>
+          <h3 class="mt-4 text-center text-base font-semibold truncate" style="color: var(--color-text-primary);">安全评分标准</h3>
+          <p class="mt-2 text-center text-sm leading-relaxed line-clamp-2" style="color: var(--color-text-secondary);">多维度评分体系量化安全等级</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card shrink-0 w-[260px] lg:w-auto p-5 snap-start animate-on-scroll anim-fade-up" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow); transition-delay: 160ms;">
+          <div class="flex justify-center">
+            <div class="feature-icon-wrap flex items-center justify-center w-12 h-12" style="background: linear-gradient(135deg, #E6F5F5 0%, #D0EBEB 100%); border-radius: var(--radius-md); transition: transform var(--transition-slow);">
+              <i data-lucide="scan-search" class="w-6 h-6" style="color: var(--color-primary);"></i>
+            </div>
+          </div>
+          <h3 class="mt-4 text-center text-base font-semibold truncate" style="color: var(--color-text-primary);">风险问题检测</h3>
+          <p class="mt-2 text-center text-sm leading-relaxed line-clamp-2" style="color: var(--color-text-secondary);">识别高危回复和潜在风险内容</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card shrink-0 w-[260px] lg:w-auto p-5 snap-start animate-on-scroll anim-fade-up" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow); transition-delay: 240ms;">
+          <div class="flex justify-center">
+            <div class="feature-icon-wrap flex items-center justify-center w-12 h-12" style="background: linear-gradient(135deg, #E6F5F5 0%, #D0EBEB 100%); border-radius: var(--radius-md); transition: transform var(--transition-slow);">
+              <i data-lucide="clipboard-check" class="w-6 h-6" style="color: var(--color-primary);"></i>
+            </div>
+          </div>
+          <h3 class="mt-4 text-center text-base font-semibold truncate" style="color: var(--color-text-primary);">人工检查清单</h3>
+          <p class="mt-2 text-center text-sm leading-relaxed line-clamp-2" style="color: var(--color-text-secondary);">提供结构化的人工复核检查项</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card shrink-0 w-[260px] lg:w-auto p-5 snap-start animate-on-scroll anim-fade-up" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow); transition-delay: 320ms;">
+          <div class="flex justify-center">
+            <div class="feature-icon-wrap flex items-center justify-center w-12 h-12" style="background: linear-gradient(135deg, #E6F5F5 0%, #D0EBEB 100%); border-radius: var(--radius-md); transition: transform var(--transition-slow);">
+              <i data-lucide="shield-check" class="w-6 h-6" style="color: var(--color-primary);"></i>
+            </div>
+          </div>
+          <h3 class="mt-4 text-center text-base font-semibold truncate" style="color: var(--color-text-primary);">上线安全建议</h3>
+          <p class="mt-2 text-center text-sm leading-relaxed line-clamp-2" style="color: var(--color-text-secondary);">生成可操作的安全改进建议报告</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. WORKFLOW SECTION (测评流程) ── -->
+  <section class="workflow-section relative" style="background: var(--color-bg-elevated);">
+
+    <!-- Noise texture -->
+    <div class="absolute inset-0 pointer-events-none" style="
+      background-image: url('data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%270.03%27/%3E%3C/svg%3E');
+      background-repeat: repeat;
+      background-size: 256px 256px;
+      opacity: 0.4;
+    "></div>
+
+    <div class="relative max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+
+      <!-- Section Title -->
+      <h2 class="text-center text-2xl sm:text-3xl lg:text-4xl font-bold animate-on-scroll anim-fade-up"
+          style="font-family: var(--font-display); color: var(--color-text-primary); text-wrap: balance;">
+        三步完成AI安全测评
+      </h2>
+
+      <!-- Steps -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-12 items-stretch">
+
+        <!-- Step 1 -->
+        <div class="workflow-step relative p-6 lg:p-8 animate-on-scroll anim-fade-up" style="background: var(--color-bg-elevated); border-top: 3px solid var(--color-primary); border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); border-left: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow);">
+          <div class="flex items-start gap-4">
+            <div class="flex items-center justify-center w-12 h-12 shrink-0" style="background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary-tint-70) 100%); border-radius: var(--radius-md);">
+              <i data-lucide="settings" class="w-6 h-6" style="color: var(--color-primary);"></i>
+            </div>
+            <div>
+              <span class="text-xs font-semibold tracking-wide whitespace-nowrap" style="color: var(--color-text-tertiary);">STEP 01</span>
+              <h3 class="mt-1 text-lg font-semibold truncate" style="color: var(--color-text-primary);">配置测试场景</h3>
+              <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">选择AI类型、青少年年龄段和测试维度</p>
+            </div>
+          </div>
+          <!-- Connecting dashed line (desktop) -->
+          <div class="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 w-8" style="border-top: 2px dashed var(--color-border); opacity: 0.6;" aria-hidden="true"></div>
+          <!-- Arrow (desktop only) -->
+          <div class="hidden lg:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 items-center justify-center" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-full);">
+            <i data-lucide="chevron-right" class="w-4 h-4" style="color: var(--color-text-tertiary);"></i>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="workflow-step relative p-6 lg:p-8 animate-on-scroll anim-fade-up" style="background: var(--color-bg-elevated); border-top: 3px solid var(--color-primary); border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); border-left: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow); transition-delay: 100ms;">
+          <div class="flex items-start gap-4">
+            <div class="flex items-center justify-center w-12 h-12 shrink-0" style="background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary-tint-70) 100%); border-radius: var(--radius-md);">
+              <i data-lucide="play" class="w-6 h-6" style="color: var(--color-primary);"></i>
+            </div>
+            <div>
+              <span class="text-xs font-semibold tracking-wide whitespace-nowrap" style="color: var(--color-text-tertiary);">STEP 02</span>
+              <h3 class="mt-1 text-lg font-semibold truncate" style="color: var(--color-text-primary);">运行安全测评</h3>
+              <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">自动生成测试用例并执行安全评估</p>
+            </div>
+          </div>
+          <!-- Connecting dashed line (desktop) -->
+          <div class="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 w-8" style="border-top: 2px dashed var(--color-border); opacity: 0.6;" aria-hidden="true"></div>
+          <!-- Arrow (desktop only) -->
+          <div class="hidden lg:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 items-center justify-center" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-full);">
+            <i data-lucide="chevron-right" class="w-4 h-4" style="color: var(--color-text-tertiary);"></i>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="workflow-step relative p-6 lg:p-8 animate-on-scroll anim-fade-up" style="background: var(--color-bg-elevated); border-top: 3px solid var(--color-primary); border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); border-left: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: transform var(--transition-slow), box-shadow var(--transition-slow); transition-delay: 200ms;">
+          <div class="flex items-start gap-4">
+            <div class="flex items-center justify-center w-12 h-12 shrink-0" style="background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary-tint-70) 100%); border-radius: var(--radius-md);">
+              <i data-lucide="file-text" class="w-6 h-6" style="color: var(--color-primary);"></i>
+            </div>
+            <div>
+              <span class="text-xs font-semibold tracking-wide whitespace-nowrap" style="color: var(--color-text-tertiary);">STEP 03</span>
+              <h3 class="mt-1 text-lg font-semibold truncate" style="color: var(--color-text-primary);">获取安全报告</h3>
+              <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">查看风险评分、问题清单和改进建议</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. DASHBOARD PREVIEW SECTION (dark) ── -->
+  <section class="dashboard-section relative overflow-hidden" style="background: #0F2027;">
+
+    <!-- Noise texture -->
+    <div class="absolute inset-0 pointer-events-none" style="
+      background-image: url('data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%270.04%27/%3E%3C/svg%3E');
+      background-repeat: repeat;
+      background-size: 256px 256px;
+      opacity: 0.4;
+    "></div>
+
+    <div class="relative max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+
+      <!-- Section Title with text gradient -->
+      <h2 class="dashboard-title text-center text-2xl sm:text-3xl lg:text-4xl font-bold animate-on-scroll anim-fade-up"
+          style="font-family: var(--font-display); text-wrap: balance; background: linear-gradient(90deg, #F8F9FA 0%, #0B4E4C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+        专业测评工作台
+      </h2>
+      <p class="text-center mt-3 text-sm sm:text-base" style="color: #8B8F9A;">
+        深色主题专业仪表板，一目了然的风险评估结果
+      </p>
+
+      <!-- Dashboard Preview Image (replacing CSS-only mock) -->
+      <div class="mt-12 max-w-3xl mx-auto animate-on-scroll anim-fade-scale">
+        <div class="relative" style="perspective: 1000px;">
+          <img src="../assets/image_2_yi19x4.jpg" alt="护苗 Eval 专业测评工作台界面预览"
+               class="w-full object-cover"
+               style="border-radius: 16px; box-shadow: 0 0 40px rgba(11,78,76,0.2), 0 0 80px rgba(11,78,76,0.1); transform: perspective(1000px) rotateX(2deg);">
+          <!-- Glow/reflection below image -->
+          <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 pointer-events-none" style="
+            background: linear-gradient(180deg, rgba(11,78,76,0.15) 0%, transparent 100%);
+            filter: blur(20px);
+            border-radius: 50%;
+          " aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. TRUST CTA SECTION ── -->
+  <section class="trust-section relative overflow-hidden" style="background: #FFF7F5;">
+
+    <!-- Trust illustration decorative element -->
+    <img src="../assets/image_3_yi19x4.jpg" alt="" class="absolute right-0 top-0 h-full w-auto object-cover pointer-events-none"
+         style="opacity: 0.12; max-width: 45%;" aria-hidden="true">
+
+    <!-- Noise texture -->
+    <div class="absolute inset-0 pointer-events-none" style="
+      background-image: url('data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%270.03%27/%3E%3C/svg%3E');
+      background-repeat: repeat;
+      background-size: 256px 256px;
+      opacity: 0.4;
+    "></div>
+
+    <!-- Floating particles -->
+    <div class="absolute w-2 h-2 rounded-full pointer-events-none anim-float" style="background: var(--color-primary); opacity: 0.15; top: 15%; left: 8%;" aria-hidden="true"></div>
+    <div class="absolute w-3 h-3 rounded-full pointer-events-none anim-float-delay-1" style="background: var(--color-warm); opacity: 0.12; top: 25%; right: 12%;" aria-hidden="true"></div>
+    <div class="absolute w-2 h-2 rounded-full pointer-events-none anim-float-delay-2" style="background: var(--color-primary); opacity: 0.1; bottom: 20%; left: 15%;" aria-hidden="true"></div>
+    <div class="absolute w-1.5 h-1.5 rounded-full pointer-events-none anim-float" style="background: var(--color-warm); opacity: 0.15; bottom: 30%; right: 8%;" aria-hidden="true"></div>
+    <div class="absolute w-2.5 h-2.5 rounded-full pointer-events-none anim-float-delay-1" style="background: var(--color-primary); opacity: 0.08; top: 60%; left: 5%;" aria-hidden="true"></div>
+
+    <div class="relative max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 text-center">
+
+      <!-- Manifesto Quote -->
+      <p class="text-2xl sm:text-3xl lg:text-4xl font-bold max-w-2xl mx-auto animate-on-scroll anim-fade-up"
+         style="font-family: var(--font-display); color: var(--color-text-primary); text-wrap: balance;">
+        为每一个青少年多一层保护
+      </p>
+
+      <!-- Subtitle -->
+      <p class="mt-4 text-base sm:text-lg max-w-xl mx-auto animate-on-scroll anim-fade-up"
+         style="color: var(--color-text-secondary); transition-delay: 150ms;">
+        让每一款面向青少年的AI应用，在上线前都经过严格的安全检测
+      </p>
+
+      <!-- CTA with pulsing ring -->
+      <div class="mt-8">
+        <div class="relative inline-flex">
+          <span class="trust-cta-ring absolute inset-0 pointer-events-none" style="
+            border: 2px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            animation: pulse-ring 2s ease-out infinite;
+          " aria-hidden="true"></span>
+          <a href="#" data-dom-id="cta-start-eval-2"
+             class="trust-cta-btn relative inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white whitespace-nowrap"
+             style="background: var(--color-primary); border-radius: var(--radius-md); transition: background var(--transition-fast), transform 150ms ease;">
+            开始你的第一次安全测评
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. FOOTER ── -->
+  <footer style="background: #1A1A2E;">
+
+    <!-- Gradient line at top of footer -->
+    <div style="height: 2px; background: linear-gradient(90deg, var(--color-primary), var(--color-warm));" aria-hidden="true"></div>
+
+    <div class="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+
+        <!-- Brand Column -->
+        <div class="col-span-2 sm:col-span-2 lg:col-span-1">
+          <div class="flex items-center gap-2">
+            <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M16 2L4 8v8c0 7.18 5.13 13.89 12 16 6.87-2.11 12-8.82 12-16V8L16 2z" fill="#0B4E4C"/>
+              <path d="M14 19l-3-3 1.41-1.41L14 16.17l4.59-4.59L20 13l-6 6z" fill="#F8F9FA"/>
+            </svg>
+            <span class="text-base font-semibold" style="font-family: var(--font-display); color: #F8F9FA;">护苗 Eval</span>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed line-clamp-2" style="color: #8B8F9A;">
+            面向青少年AI应用的专业安全测评平台
+          </p>
+        </div>
+
+        <!-- Product Column -->
+        <div>
+          <h4 class="text-sm font-semibold mb-4" style="color: #E0E4E8;">产品</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">安全测评台</a></li>
+            <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">测试用例库</a></li>
+            <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">评分标准</a></li>
+            <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">API接口</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources Column -->
+        <div>
+          <h4 class="text-sm font-semibold mb-4" style="color: #E0E4E8;">资源</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">开发文档</a></li>
+            <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">安全白皮书</a></li>
+            <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">常见问题</a></li>
+          </ul>
+        </div>
+
+        <!-- About Column -->
+        <div>
+          <h4 class="text-sm font-semibold mb-4" style="color: #E0E4E8;">关于</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">关于我们</a></li>
+            <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">联系方式</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Copyright -->
+      <div class="mt-12 pt-6" style="border-top: 1px solid #2A2A4E;">
+        <p class="text-center text-sm" style="color: #8B8F9A;">
+          &copy; 2026 护苗 Eval. 为青少年AI安全而生。
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ── Scroll-triggered fade-in animations ── -->
+<style>
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Animation utility classes */
+.animate-on-scroll {
+  opacity: 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+.anim-fade-up { transform: translateY(30px); }
+.anim-fade-left { transform: translateX(-30px); }
+.anim-fade-right { transform: translateX(30px); }
+.anim-fade-scale { transform: scale(0.95); }
+.anim-float { animation: float 6s ease-in-out infinite; }
+.anim-float-delay-1 { animation: float 6s ease-in-out infinite; animation-delay: -2s; }
+.anim-float-delay-2 { animation: float 6s ease-in-out infinite; animation-delay: -4s; }
+
+/* Nav link hover underline effect */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-primary);
+  transition: width var(--transition-base);
+}
+.nav-link:hover::after,
+.nav-link[data-active="true"]::after {
+  width: 100%;
+}
+
+/* Hero CTA hover effects */
+.hero-cta-primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(11,78,76,0.25);
+}
+.hero-cta-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(11,78,76,0.12);
+}
+
+/* Problem card hover effects */
+.problem-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* Feature card hover effects */
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.feature-card:hover .feature-icon-wrap {
+  transform: scale(1.05);
+}
+
+/* Workflow step hover effects */
+.workflow-step:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* Trust CTA hover */
+.trust-cta-btn:hover {
+  transform: scale(1.02);
+  background: var(--color-primary-hover);
+}
+
+/* Footer link hover */
+.footer-link:hover {
+  color: var(--color-primary);
+}
+</style>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>
