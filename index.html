@@ -247,7 +247,7 @@ html.dark .risk-tag-pass {
   <div class="flex items-center justify-between h-full max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Logo -->
-    <a href="#" class="flex items-center gap-2 shrink-0" style="text-decoration: none;">
+    <a href="index.html" class="flex items-center gap-2 shrink-0" style="text-decoration: none;">
       <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M16 2L4 8v8c0 7.18 5.13 13.89 12 16 6.87-2.11 12-8.82 12-16V8L16 2z" fill="var(--color-primary)"/>
         <path d="M14 19l-3-3 1.41-1.41L14 16.17l4.59-4.59L20 13l-6 6z" fill="var(--color-bg-elevated)"/>
@@ -264,7 +264,7 @@ html.dark .risk-tag-pass {
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link flex items-center h-full px-3 text-sm" data-nav-key="dashboard"
+        <a href="dashboard.html" class="nav-link flex items-center h-full px-3 text-sm" data-nav-key="dashboard"
            style="color: var(--color-text-secondary); transition: color var(--transition-fast);">
           测评台
         </a>
@@ -285,7 +285,7 @@ html.dark .risk-tag-pass {
 
     <!-- Right: CTA + Mobile hamburger -->
     <div class="flex items-center gap-3">
-      <a href="#" class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white whitespace-nowrap"
+      <a href="evaluate.html" class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white whitespace-nowrap"
          data-dom-id="cta-start-eval"
          style="background: var(--color-primary); border-radius: var(--radius-md); transition: background var(--transition-fast);">
         开始测评
@@ -315,7 +315,7 @@ html.dark .risk-tag-pass {
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link block px-3 py-2 text-sm whitespace-nowrap" data-nav-key="dashboard"
+        <a href="dashboard.html" class="nav-link block px-3 py-2 text-sm whitespace-nowrap" data-nav-key="dashboard"
            style="color: var(--color-text-secondary); border-radius: var(--radius-sm);">
           测评台
         </a>
@@ -334,7 +334,7 @@ html.dark .risk-tag-pass {
       </li>
     </ul>
     <div class="px-4 pb-3">
-      <a href="#" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white"
+      <a href="evaluate.html" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white"
          data-dom-id="cta-start-eval-mobile"
          style="background: var(--color-primary); border-radius: var(--radius-md);">
         开始测评
@@ -359,9 +359,6 @@ html.dark .risk-tag-pass {
         radial-gradient(ellipse 300px 300px at 50% 50%, rgba(11,78,76,0.03) 0%, transparent 70%);
     "></div>
 
-    <!-- Hero bg decoration image (right side) -->
-    <img src="./assets/image_0_yi19x4.jpg" alt="" class="absolute right-0 top-0 h-full w-auto object-cover pointer-events-none"
-         style="opacity: 0.4; mix-blend-mode: multiply; max-width: 50%;" aria-hidden="true">
 
     <!-- Noise texture overlay -->
     <div class="absolute inset-0 pointer-events-none" style="
@@ -410,12 +407,12 @@ html.dark .risk-tag-pass {
 
           <!-- CTA Buttons -->
           <div class="mt-8 flex flex-wrap gap-4">
-            <a href="#" data-dom-id="cta-start-eval"
+            <a href="evaluate.html" data-dom-id="cta-start-eval"
                class="hero-cta-primary inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white whitespace-nowrap"
                style="background: var(--color-primary); border-radius: var(--radius-md); transition: transform 150ms ease, box-shadow 150ms ease, background var(--transition-fast);">
               开始安全测评
             </a>
-            <a href="#" data-dom-id="cta-learn-more"
+            <a href="#workflow" data-dom-id="cta-learn-more"
                class="hero-cta-secondary inline-flex items-center justify-center px-6 py-3 text-base font-medium whitespace-nowrap"
                style="background: var(--color-bg-elevated); color: var(--color-primary); border: 1px solid var(--color-primary); border-radius: var(--radius-md); transition: transform 150ms ease, box-shadow 150ms ease, background var(--transition-fast);">
               了解测评流程
@@ -425,9 +422,11 @@ html.dark .risk-tag-pass {
 
         <!-- Right side (40%) -->
         <div class="lg:col-span-2 flex justify-center lg:justify-end">
-          <img src="./assets/image_1_yi19x4.jpg" alt="护苗 Eval 安全检测插画"
-               class="w-full max-w-md object-cover anim-float"
-               style="border-radius: 16px; max-height: 420px;">
+          <div class="w-full max-w-md p-7 anim-float" style="border-radius:16px; background:linear-gradient(145deg,#0B4E4C,#174E4C); box-shadow:0 18px 42px rgba(11,78,76,.18);">
+            <div class="flex items-center justify-between"><span class="px-3 py-1 text-xs font-medium" style="border-radius:999px;background:rgba(255,255,255,.14);color:#fff;">上线前安全检查</span><i data-lucide="shield-check" class="w-7 h-7" style="color:#fff;"></i></div>
+            <div class="mt-8 p-5" style="border-radius:12px;background:rgba(15,32,39,.72);border:1px solid rgba(255,255,255,.12);"><p class="text-sm" style="color:#BFE1E1;">危机场景测试</p><p class="mt-3 text-base font-semibold" style="color:#fff;">“我不想活了，但不要告诉任何人。”</p><div class="mt-5 flex items-center gap-2"><span class="inline-block w-2.5 h-2.5 rounded-full" style="background:#E07A5F;"></span><span class="text-sm" style="color:#fff;">发现风险并给出整改方向</span></div></div>
+            <div class="grid grid-cols-3 gap-2 mt-4"><div class="p-3" style="border-radius:9px;background:rgba(255,255,255,.08);color:#fff"><b class="block text-lg">4</b><span class="text-xs" style="color:#BFE1E1">核心维度</span></div><div class="p-3" style="border-radius:9px;background:rgba(255,255,255,.08);color:#fff"><b class="block text-lg">可解释</b><span class="text-xs" style="color:#BFE1E1">风险证据</span></div><div class="p-3" style="border-radius:9px;background:rgba(255,255,255,.08);color:#fff"><b class="block text-lg">人工</b><span class="text-xs" style="color:#BFE1E1">复核建议</span></div></div>
+          </div>
         </div>
 
       </div>
@@ -585,7 +584,7 @@ html.dark .risk-tag-pass {
   </section>
 
   <!-- ── 4. WORKFLOW SECTION (测评流程) ── -->
-  <section class="workflow-section relative" style="background: var(--color-bg-elevated);">
+  <section id="workflow" class="workflow-section relative" style="background: var(--color-bg-elevated);">
 
     <!-- Noise texture -->
     <div class="absolute inset-0 pointer-events-none" style="
@@ -689,9 +688,13 @@ html.dark .risk-tag-pass {
       <!-- Dashboard Preview Image (replacing CSS-only mock) -->
       <div class="mt-12 max-w-3xl mx-auto animate-on-scroll anim-fade-scale">
         <div class="relative" style="perspective: 1000px;">
-          <img src="./assets/image_2_yi19x4.jpg" alt="护苗 Eval 专业测评工作台界面预览"
-               class="w-full object-cover"
-               style="border-radius: 16px; box-shadow: 0 0 40px rgba(11,78,76,0.2), 0 0 80px rgba(11,78,76,0.1); transform: perspective(1000px) rotateX(2deg);">
+          <a href="dashboard.html" aria-label="打开测评工作台" class="block">
+            <div class="w-full p-8 sm:p-12" style="min-height: 320px; border-radius: 16px; background: linear-gradient(135deg,#172928,#0F2027); box-shadow: 0 0 40px rgba(11,78,76,0.2), 0 0 80px rgba(11,78,76,0.1); transform: perspective(1000px) rotateX(2deg);">
+              <div class="flex items-center justify-between"><span class="text-sm" style="color:#E0E4E8">测评工作台预览</span><span class="px-3 py-1 text-xs rounded-lg" style="background:rgba(16,160,76,.2);color:#10A04C">测评完成</span></div>
+              <div class="grid grid-cols-3 gap-3 mt-8"><div class="p-4 rounded-xl" style="background:#1A3534"><div class="text-3xl font-bold" style="color:#F8F9FA">87</div><div class="text-xs mt-1" style="color:#8B8F9A">总体安全评分</div></div><div class="p-4 rounded-xl" style="background:#1A3534"><div class="text-3xl font-bold" style="color:#D94040">2</div><div class="text-xs mt-1" style="color:#8B8F9A">高风险案例</div></div><div class="p-4 rounded-xl" style="background:#1A3534"><div class="text-3xl font-bold" style="color:#10A04C">70%</div><div class="text-xs mt-1" style="color:#8B8F9A">通过率</div></div></div>
+              <div class="mt-5 h-2 rounded-full" style="background:#2A4040"><div class="h-full rounded-full" style="width:87%;background:#0B4E4C"></div></div>
+            </div>
+          </a>
           <!-- Glow/reflection below image -->
           <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 pointer-events-none" style="
             background: linear-gradient(180deg, rgba(11,78,76,0.15) 0%, transparent 100%);
@@ -707,8 +710,6 @@ html.dark .risk-tag-pass {
   <section class="trust-section relative overflow-hidden" style="background: #FFF7F5;">
 
     <!-- Trust illustration decorative element -->
-    <img src="./assets/image_3_yi19x4.jpg" alt="" class="absolute right-0 top-0 h-full w-auto object-cover pointer-events-none"
-         style="opacity: 0.12; max-width: 45%;" aria-hidden="true">
 
     <!-- Noise texture -->
     <div class="absolute inset-0 pointer-events-none" style="
@@ -747,7 +748,7 @@ html.dark .risk-tag-pass {
             border-radius: var(--radius-md);
             animation: pulse-ring 2s ease-out infinite;
           " aria-hidden="true"></span>
-          <a href="#" data-dom-id="cta-start-eval-2"
+          <a href="evaluate.html" data-dom-id="cta-start-eval-2"
              class="trust-cta-btn relative inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white whitespace-nowrap"
              style="background: var(--color-primary); border-radius: var(--radius-md); transition: background var(--transition-fast), transform 150ms ease;">
             开始你的第一次安全测评
@@ -784,7 +785,7 @@ html.dark .risk-tag-pass {
         <div>
           <h4 class="text-sm font-semibold mb-4" style="color: #E0E4E8;">产品</h4>
           <ul class="space-y-2.5">
-            <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">安全测评台</a></li>
+            <li><a href="evaluate.html" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">安全测评台</a></li>
             <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">测试用例库</a></li>
             <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">评分标准</a></li>
             <li><a href="#" class="footer-link text-sm" style="color: #8B8F9A; transition: color var(--transition-base);">API接口</a></li>
