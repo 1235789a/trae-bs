@@ -1,13 +1,12 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { evaluate, DIMENSIONS } from '../src/rules.js';
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default function handler(req: { method: string; body: { answer: string } }, res: { status: (code: number) => { json: (data: unknown) => void } }) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const { answer } = req.body as { answer: string };
+    const { answer } = req.body;
 
     if (!answer || typeof answer !== 'string') {
       return res.status(400).json({ error: 'Answer is required' });

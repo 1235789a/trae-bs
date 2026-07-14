@@ -11,6 +11,6 @@
     "resolveJsonModule": true,
     "types": ["node"]
   },
-  "include": ["src/**/*", "api/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/rules.ts", "src/testCases.ts", "src/rules.test.ts", "api/**/*.ts"],
+  "exclude": ["node_modules", "src/api/**"]
 }
