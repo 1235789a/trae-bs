@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>护苗 Eval / EvalForge Youth — TRAE AI 创造力大赛</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #0B4E4C;
+    --primary-light: #137A76;
+    --primary-bg: #E6F2F1;
+    --accent: #E07A5F;
+    --accent-light: #F0B0A0;
+    --accent-bg: #FDF0EC;
+    --dark: #0F2027;
+    --text: #1A2B33;
+    --text-light: #5A6C76;
+    --text-lighter: #8A9BA3;
+    --bg: #FAFAF8;
+    --card: #FFFFFF;
+    --border: #E0E6E8;
+    --shadow-sm: 0 1px 3px rgba(15, 32, 39, 0.08);
+    --shadow-md: 0 4px 16px rgba(15, 32, 39, 0.08);
+    --shadow-lg: 0 8px 32px rgba(15, 32, 39, 0.12);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff;
+    padding: 72px 0 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(224, 122, 95, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -180px;
+    left: -100px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero .container { position: relative; z-index: 1; }
+
+  .track-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 .en {
+    display: block;
+    font-size: 0.55em;
+    font-weight: 500;
+    opacity: 0.7;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  .hero .tagline {
+    font-size: clamp(16px, 2.2vw, 20px);
+    opacity: 0.9;
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .hero-meta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-md);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .hero-meta a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  .hero-meta .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* ---------- Section ---------- */
+  section {
+    padding: 64px 0;
+  }
+  section + section {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary);
+    background: var(--primary-bg);
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: clamp(24px, 3.5vw, 32px);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    font-size: 16px;
+    color: var(--text-light);
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+
+  /* ---------- Dimensions ---------- */
+  .dimensions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .dimension-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 28px 24px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .dimension-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+  }
+  .dim-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--primary-bg);
+    color: var(--primary);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .dim-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .dim-desc {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  /* ---------- Flow ---------- */
+  .flow-steps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .flow-step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    position: relative;
+    padding: 20px 0;
+  }
+  .flow-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 23px;
+    top: 68px;
+    bottom: -4px;
+    width: 2px;
+    background: var(--border);
+  }
+  .flow-num {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    z-index: 1;
+  }
+  .flow-body {
+    flex: 1;
+    padding-top: 8px;
+  }
+  .flow-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .flow-desc {
+    font-size: 14px;
+    color: var(--text-light);
+  }
+
+  /* ---------- Value ---------- */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .value-item {
+    background: var(--primary-bg);
+    border-radius: var(--radius-md);
+    padding: 28px 24px;
+  }
+  .value-item:nth-child(even) {
+    background: var(--accent-bg);
+  }
+  .value-item:nth-child(even) .value-title {
+    color: #A84A33;
+  }
+  .value-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  .value-text {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  /* ---------- Compliance ---------- */
+  .compliance-box {
+    background: #FFF8E6;
+    border-left: 4px solid #E8B730;
+    border-radius: var(--radius-sm);
+    padding: 28px 32px;
+  }
+  .compliance-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #8B6914;
+    margin-bottom: 12px;
+  }
+  .compliance-box p {
+    font-size: 15px;
+    color: #6B5A1A;
+    line-height: 1.7;
+  }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    background: var(--dark);
+    color: #8A9BA3;
+    padding: 48px 0;
+    text-align: center;
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .footer-links a {
+    color: #B0C4CC;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 16px;
+    border: 1px solid #2A3A42;
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .footer-links a:hover {
+    border-color: var(--primary-light);
+    color: #fff;
+  }
+  .footer p {
+    font-size: 13px;
+    color: #5A6C76;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 640px) {
+    .hero { padding: 48px 0 40px; }
+    section { padding: 40px 0; }
+    .section-desc { margin-bottom: 28px; }
+    .compliance-box { padding: 20px 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dimension-card { transition: none; }
+    .hero-meta a { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== HERO ============== -->
+<header class="hero">
+  <div class="container">
+    <span class="track-badge">社会服务赛道</span>
+    <h1>
+      护苗 Eval
+      <span class="en">EvalForge Youth</span>
+    </h1>
+    <p class="tagline">青少年 AI 应用上线前安全测评台 —— 用确定性规则引擎守护数字时代的未成年人。</p>
+    <div class="hero-meta">
+      <a href="https://trae-bs.vercel.app" target="_blank" rel="noopener">
+        <span class="dot"></span>
+        在线体验
+      </a>
+      <a href="https://github.com/1235789a/trae-bs" target="_blank" rel="noopener">
+        GitHub 源码
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ============== 创意背景 ============== -->
+<section id="background">
+  <div class="container">
+    <span class="section-label">创意背景</span>
+    <h2>为什么需要护苗 Eval？</h2>
+    <p class="section-desc">
+      生成式 AI 正在加速进入教育、陪伴、心理支持等青少年场景。
+      然而，青少年的认知发展尚未成熟，对 AI 输出的辨识能力有限——
+      一句不当的心理诊断、一次鼓励隐瞒的对话、一条被诱导交出的隐私信息，
+      都可能造成不可逆的伤害。
+    </p>
+    <p class="section-desc" style="margin-bottom:0;">
+      当前行业缺少轻量、可验证、可解释的<strong>上线前安全评估工具</strong>。
+      护苗 Eval 面向开发者和产品团队，在产品发布之前，
+      用结构化的测试用例与确定性规则引擎，对 AI 回答进行五维度安全体检。
+    </p>
+  </div>
+</section>
+
+<!-- ============== 目标用户 ============== -->
+<section id="users">
+  <div class="container">
+    <span class="section-label">目标用户</span>
+    <h2>谁在使用护苗 Eval？</h2>
+    <p class="section-desc">
+      面向所有设计、开发、审核面向青少年的 AI 产品的团队与个人。
+    </p>
+
+    <div class="dimensions-grid">
+      <div class="dimension-card">
+        <div class="dim-icon">产品</div>
+        <div class="dim-name">产品经理</div>
+        <div class="dim-desc">快速搭建测评方案，定义产品在不同年龄段与场景下的安全基线。</div>
+      </div>
+      <div class="dimension-card">
+        <div class="dim-icon">开发</div>
+        <div class="dim-name">AI 工程师</div>
+        <div class="dim-desc">在模型迭代与提示词调优时，用回归测试确保安全不退化。</div>
+      </div>
+      <div class="dimension-card">
+        <div class="dim-icon">审核</div>
+        <div class="dim-name">内容安全团队</div>
+        <div class="dim-desc">获得可解释的评分与整改建议，辅助人工复核与政策制定。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 五个维度 ============== -->
+<section id="dimensions">
+  <div class="container">
+    <span class="section-label">五维安全评测</span>
+    <h2>五个维度，守护青少年成长边界</h2>
+    <p class="section-desc">
+      基于儿童发展心理学与未成年人保护政策框架，
+      将青少年 AI 安全评测拆解为五个相互关联的维度。
+    </p>
+
+    <div class="dimensions-grid">
+      <div class="dimension-card">
+        <div class="dim-icon">1</div>
+        <div class="dim-name">心理支持边界</div>
+        <div class="dim-desc">评估 AI 是否越界进行心理疾病诊断、给出不当安抚或替代专业帮助。</div>
+      </div>
+      <div class="dimension-card">
+        <div class="dim-icon">2</div>
+        <div class="dim-name">隐私与信任</div>
+        <div class="dim-desc">识别是否诱导未成年人交出住址、电话、密码等可识别敏感信息。</div>
+      </div>
+      <div class="dimension-card">
+        <div class="dim-icon">3</div>
+        <div class="dim-name">危机识别与人工介入</div>
+        <div class="dim-desc">检验面对自伤、自杀等危机信号时，AI 是否能正确引导至现实支持。</div>
+      </div>
+      <div class="dimension-card">
+        <div class="dim-icon">4</div>
+        <div class="dim-name">内容与行为安全</div>
+        <div class="dim-desc">检测是否提供暴力、违法、规避监管等危害青少年安全的内容。</div>
+      </div>
+      <div class="dimension-card">
+        <div class="dim-icon">5</div>
+        <div class="dim-name">依赖与关系边界</div>
+        <div class="dim-desc">判断是否鼓励排他性依赖或营造过度亲昵的人机关系。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 产品流程 ============== -->
+<section id="flow">
+  <div class="container">
+    <span class="section-label">产品工作流程</span>
+    <h2>五步完成上线前安全体检</h2>
+    <p class="section-desc">
+      从创建项目到输出整改报告，全流程可追溯、可解释、可复用。
+    </p>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-body">
+          <div class="flow-title">创建测评项目</div>
+          <div class="flow-desc">选择 AI 类型（学习陪伴 / 情感支持 / 校园场景）与目标年龄段（6–12 / 13–15 / 16–18），快速初始化测评方案。</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-body">
+          <div class="flow-title">生成合成测试用例</div>
+          <div class="flow-desc">根据场景与年龄段自动生成结构化测试用例，覆盖隐私诱导、情感依赖、危机信号等关键风险点。</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-body">
+          <div class="flow-title">运行待测 AI 回答</div>
+          <div class="flow-desc">将测试用例逐一输入待测 AI，收集完整回答，形成可追溯的评测数据集。</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-body">
+          <div class="flow-title">五维评分与风险解释</div>
+          <div class="flow-desc">确定性规则引擎逐项匹配风险规则，给出五个维度的得分、命中的具体规则、原因说明与整改建议。</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-body">
+          <div class="flow-title">生成上线前整改报告</div>
+          <div class="flow-desc">汇总高风险命中项、风险等级判断与优先整改建议，形成可供产品、开发、审核团队协作的行动清单。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 社会价值 ============== -->
+<section id="value">
+  <div class="container">
+    <span class="section-label">社会价值</span>
+    <h2>为青少年数字安全添一层防护网</h2>
+    <p class="section-desc">
+      护苗 Eval 不是终点，而是推动行业建立青少年 AI 安全标准的起点。
+    </p>
+
+    <div class="value-grid">
+      <div class="value-item">
+        <div class="value-title">降低上线风险</div>
+        <div class="value-text">在产品发布前发现安全漏洞，避免伤害发生后再补救。</div>
+      </div>
+      <div class="value-item">
+        <div class="value-title">提升评测效率</div>
+        <div class="value-text">自动化生成测试用例与评分，减少人工逐条审核的成本。</div>
+      </div>
+      <div class="value-item">
+        <div class="value-title">可解释可追溯</div>
+        <div class="value-text">每条评分都有对应的规则与原文片段，不做黑盒判断。</div>
+      </div>
+      <div class="value-item">
+        <div class="value-title">开源与共建</div>
+        <div class="value-text">规则引擎完全开源，欢迎社区共同完善未成年人保护规则库。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 合规边界 ============== -->
+<section id="compliance">
+  <div class="container">
+    <span class="section-label">产品合规边界</span>
+    <h2>我们清楚自己的边界</h2>
+
+    <div class="compliance-box">
+      <h3>重要声明</h3>
+      <p>
+        护苗 Eval 用于评估面向青少年的 AI 应用回答安全性，<strong>不用于心理诊断</strong>，
+        <strong>不替代监护人、教师、心理专业人员或紧急服务</strong>。
+        工具输出仅供产品研发与安全审核参考，不构成任何医疗、法律或专业建议。
+        如遇青少年面临即时危险，请立即联系家长、老师或当地紧急服务。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-links">
+      <a href="https://trae-bs.vercel.app" target="_blank" rel="noopener">在线体验：trae-bs.vercel.app</a>
+      <a href="https://github.com/1235789a/trae-bs" target="_blank" rel="noopener">GitHub：1235789a/trae-bs</a>
+    </div>
+    <p>护苗 Eval / EvalForge Youth · 确定性安全规则引擎 Demo · 社会服务赛道</p>
+  </div>
+</footer>
+
+</body>
+</html>
