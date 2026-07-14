@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vercel dev",
-    "build": "tsc && vercel build",
+    "build": "tsc",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts",
-    "test": "tsc && node --test dist/*.test.js",
+    "test": "tsc && node --test dist/src/*.test.js",
     "deploy": "vercel deploy --prod"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "@types/node": "^20.14.10",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "@vercel/node": "^5.8.24",
     "eslint": "^8.57.0",
     "typescript": "^5.5.3",
     "vercel": "^35.2.3"

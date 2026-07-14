@@ -283,9 +283,9 @@
     <span style="color:#8b8f9a">/ 安全测评</span>
   </nav>
   <main class="wrap">
-    <div class="eyebrow">EVALFORGE YOUTH · 可体验 Demo</div>
+    <div class="eyebrow">EVALFORGE YOUTH · 确定性安全规则引擎 Demo</div>
     <h1 class="title">开始一次上线前安全测评</h1>
-    <p class="lead">选择面向青少年的 AI 场景，输入目标 AI 的实际回答，系统会以公开、可解释的规则进行初步风险筛查，并生成需要人工复核的项目。</p>
+    <p class="lead">选择面向青少年的 AI 场景，输入目标 AI 的实际回答，系统会以公开、可解释的确定性规则进行风险筛查，并生成需要人工复核的项目。</p>
     <div class="notice">
       <i data-lucide="info" style="width:20px;flex:none"></i>
       <span>护苗 Eval 用于评估面向青少年的 AI 应用回答安全性，不用于心理诊断，不替代监护人、教师、心理专业人员或紧急服务。结果仅用于帮助开发团队发现上线前风险，不能替代专业人工审核。</span>
@@ -357,7 +357,7 @@
       </div>
       <div style="margin-top: 16px; padding: 12px; background: #f7f8f9; border-radius: 8px; font-size: 13px; color: var(--muted);">
         <i data-lucide="info" style="width:14px; display: inline-block; margin-right: 6px;"></i>
-        <b>演示用待测 AI</b> - 内置示例使用固定回答集进行演示，评分由规则引擎现场真实计算。
+        <b>确定性安全规则引擎 Demo</b> - 内置示例使用固定回答集进行演示，评分由确定性规则引擎现场真实计算，不调用实时 AI。
       </div>
     </section>
 
@@ -391,7 +391,7 @@
       </div>
     </section>
 
-    <p class="footer-note">护苗 Eval 使用有限规则进行演示性筛查；请勿将评分用于诊断个人或替代专业危机服务。</p>
+    <p class="footer-note">护苗 Eval 使用确定性安全规则引擎进行演示性筛查；请勿将评分用于诊断个人或替代专业危机服务。实时 AI 语义复核未配置。</p>
   </main>
   <script>
     const DIMENSIONS = {
@@ -562,7 +562,9 @@
 
         if (data.success) {
           renderResult(data.data);
-          await runAiReview(data.data);
+          const status = document.getElementById('aiReviewStatus');
+          status.textContent = '确定性安全规则引擎评分完成。实时 AI 语义复核未配置，当前结果完全基于确定性规则。';
+          status.className = 'ai-review-status not-configured';
         }
       } catch (error) {
         console.error('Evaluation failed:', error);
@@ -617,38 +619,6 @@
       document.getElementById('resultSection').style.display = 'block';
     }
 
-    async function runAiReview(ruleResult) {
-      const status = document.getElementById('aiReviewStatus');
-      status.textContent = '正在进行 AI 语义复核…';
-      status.className = 'ai-review-status loading';
-
-      try {
-        const response = await fetch('/api/ai-review', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            question: currentCase?.question || '',
-            answer: document.getElementById('answer').value,
-          }),
-        });
-        const data = await response.json();
-
-        if (data.success) {
-          status.textContent = `AI 复核完成：风险等级 ${data.data.riskLevel === 'safe' ? '安全' : data.data.riskLevel === 'warning' ? '警告' : '高风险'}，建议：${data.data.recommendations[0] || '无'}`;
-          status.className = 'ai-review-status success';
-        } else if (data.configured === false) {
-          status.textContent = '实时 AI 未配置，仅显示规则评分结果。如需 AI 语义复核，请在 Vercel 后台配置 AI_API_KEY。';
-          status.className = 'ai-review-status not-configured';
-        } else {
-          status.textContent = `AI 复核失败：${data.message}`;
-          status.className = 'ai-review-status not-configured';
-        }
-      } catch (error) {
-        status.textContent = 'AI 复核请求失败';
-        status.className = 'ai-review-status not-configured';
-      }
-    }
-
     function renderDemoResults(results) {
       const card = document.getElementById('resultCard');
       const score = document.getElementById('resultScore');
@@ -700,7 +670,7 @@
         </li>
       `).join('') + (allMatches.length > 5 ? `<li style="text-align:center;color:var(--muted);font-size:12px">还有 ${allMatches.length - 5} 条风险规则命中</li>` : '');
 
-      aiStatus.textContent = `演示模式：共测试 ${results.length} 条用例，发现 ${highRiskCount} 个高风险问题。实时 AI 未配置。`;
+      aiStatus.textContent = `确定性规则引擎 Demo：共测试 ${results.length} 条用例，发现 ${highRiskCount} 个高风险问题。评分由确定性规则现场计算，未调用实时 AI。`;
       aiStatus.className = 'ai-review-status not-configured';
 
       document.getElementById('resultSection').style.display = 'block';
