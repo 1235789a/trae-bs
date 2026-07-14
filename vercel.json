@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "buildCommand": "echo skip",
   "functions": {
     "api/evaluate.ts": {
       "maxDuration": 10
