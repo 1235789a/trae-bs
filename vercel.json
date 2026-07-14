@@ -1,14 +1,5 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "installCommand": "echo skip",
-  "buildCommand": "echo skip",
-  "functions": {
-    "api/evaluate.ts": {
-      "maxDuration": 10
-    },
-    "api/testcases.ts": {
-      "maxDuration": 10
-    }
-  }
+  "outputDirectory": "."
 }
