@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "installCommand": "echo skip",
   "buildCommand": "echo skip",
   "functions": {
     "api/evaluate.ts": {
