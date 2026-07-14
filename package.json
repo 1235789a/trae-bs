@@ -2,7 +2,9 @@
   "name": "humiao-eval",
   "version": "1.0.0",
   "description": "护苗 Eval - 青少年AI应用上线前安全测评台",
-  "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "vercel dev",
     "build": "tsc",
